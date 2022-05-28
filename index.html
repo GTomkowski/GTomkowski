@@ -13,22 +13,30 @@
 </head>
 
 <body>
-    <form>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <form class="container">
+        <div class="row ">
+            <div class="col">
+                <div class="mb-3">
+                    <!-- <label for="exampleInputEmail1" class="form-label">Email address</label> -->
+                    <p class="lead mt-3 text-center fw-semibold">Enter your monthly income</p>
+                    <input type="income" class="form-control">
+                    <!-- <div id="emailHelp" class="form-text">It is confidential how much you earn.</div> -->
+                </div>
+                <div class="mb-3">
+                    <p class="lead mt-3 text-center fw-semibold">How much you want to save this month ?</p>
+                    <!-- <label for="exampleInputPassword1" class="form-label">Password</label> -->
+                    <input type="savings" class="form-control">
+                </div>
+                <div class="mb-3 custom-flex">
+                    <button class="btn btn-success btn-lg outline jcc">Submit</button>
+
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
