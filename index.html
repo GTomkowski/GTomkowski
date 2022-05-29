@@ -13,9 +13,9 @@
 </head>
 
 <body>
-    <form class="container">
-        <div class="row ">
-            <div class="col">
+    <form class="container ">
+        <div class="row position-relative">
+            <div class="col ">
                 <div class="mb-3">
                     <!-- <label for="exampleInputEmail1" class="form-label">Email address</label> -->
                     <p class="lead mt-3 text-center fw-semibold">Enter your monthly income</p>
@@ -23,7 +23,7 @@
                     <!-- <div id="emailHelp" class="form-text">It is confidential how much you earn.</div> -->
                 </div>
                 <div class="mb-3">
-                    <p class="lead mt-3 text-center fw-semibold">How much you want to save this month ?</p>
+                    <p class="lead mt-3 text-center fw-semibold">How much do you want to save this month ?</p>
                     <!-- <label for="exampleInputPassword1" class="form-label">Password</label> -->
                     <input type="savings" class="form-control">
                 </div>
@@ -33,9 +33,22 @@
                 </div>
             </div>
             <div class="col">
+                <div class="card position-absolute border-dark">
 
+                    <div class="card-body position-relative">
+                        <h3 class="card-title text-center">Budget for this month</h3>
+                        <p class="money-left ">Money left:<span> 0</span></p>
+                        <p class="money-left ">Money left:<span> 0</span></p>
+                        <input type="text" class="expense-input"><button type="button"
+                            class="btn btn-light border-dark btn-css">OK</button>
+
+
+
+                    </div>
+                </div>
             </div>
         </div>
+
     </form>
     </div>
 
