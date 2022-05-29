@@ -9,7 +9,10 @@ something like:
 How much do you earn? maybe after adding each expense it will subtract the money  from the 
 monthly income and show how much's left
 
+what functionalities I want the app to have?
 
+show how much money's left
+how much money 
 
 
 

@@ -23,6 +23,24 @@
                     <!-- <div id="emailHelp" class="form-text">It is confidential how much you earn.</div> -->
                 </div>
                 <div class="mb-3">
+                    <p class="lead mt-3 text-center fw-semibold">Choose month</p>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Choose current month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <p class="lead mt-3 text-center fw-semibold">How much do you want to save this month ?</p>
                     <!-- <label for="exampleInputPassword1" class="form-label">Password</label> -->
                     <input type="savings" class="form-control">
@@ -37,10 +55,20 @@
 
                     <div class="card-body position-relative">
                         <h3 class="card-title text-center">Budget for this month</h3>
+                        <p class="money-left ">Average money spent daily:<span> 0</span></p>
                         <p class="money-left ">Money left:<span> 0</span></p>
-                        <p class="money-left ">Money left:<span> 0</span></p>
-                        <input type="text" class="expense-input"><button type="button"
-                            class="btn btn-light border-dark btn-css">OK</button>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">0.00</span>
+                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                          </div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Choose expense category</option>
+                            <option value="1">Food</option>
+                            <option value="2">Entertainment</option>
+                            <option value="3">Utilities</option>
+                            <option value="4">Others</option>
+                        <button type="button" class="btn btn-light border-dark btn-css">OK</button>
 
 
 
