@@ -1,23 +1,30 @@
 /* make it simple at first -
 
-what is the function of this app? to track expenses
+first stage - what do I need
 
-at first it might be nice to add some information in a form before using the app itself - donzo
+a callback on addEventListener which is a submit button that will 
+store inputs and then put them in the budget card
 
-something like:
-
-How much do you earn? maybe after adding each expense it will subtract the money  from the 
-monthly income and show how much's left
-
-what functionalities I want the app to have?
-
-show how much money's left
-how much money 
-
-
-
-
-
+what is the formula on those two fields
 
 
 */
+let budgetData = []
+const addBudget = e => {
+	e.preventDefault()
+	let budget = {
+		id: Date.now(),
+		income: document.getElementById('income').value,
+		month: document.getElementById('month').value,
+		savings: document.getElementById('savings').value,
+	}
+	budgetData.push(budget)
+	document.forms[0].reset()
+
+	console.warn('added', { budgetData })
+	localStorage.setItem('BudgetForm', JSON.stringify(budgetData))
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('submit-btn').addEventListener('click', addBudget)
+})

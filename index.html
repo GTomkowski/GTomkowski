@@ -19,12 +19,12 @@
                 <div class="mb-3">
                     <!-- <label for="exampleInputEmail1" class="form-label">Email address</label> -->
                     <p class="lead mt-3 text-center fw-semibold">Enter your monthly income</p>
-                    <input type="income" class="form-control">
+                    <input type="number" class="form-control" id="income">
                     <!-- <div id="emailHelp" class="form-text">It is confidential how much you earn.</div> -->
                 </div>
                 <div class="mb-3">
                     <p class="lead mt-3 text-center fw-semibold">Choose month</p>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" id="month">
                         <option selected>Choose current month</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -43,10 +43,10 @@
                 <div class="mb-3">
                     <p class="lead mt-3 text-center fw-semibold">How much do you want to save this month ?</p>
                     <!-- <label for="exampleInputPassword1" class="form-label">Password</label> -->
-                    <input type="savings" class="form-control">
+                    <input type="number" class="form-control" id="savings">
                 </div>
                 <div class="mb-3 custom-flex">
-                    <button class="btn btn-success btn-lg outline jcc">Submit</button>
+                    <button class="btn btn-success btn-lg outline jcc" id="submit-btn">Submit</button>
 
                 </div>
             </div>
