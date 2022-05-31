@@ -35,3 +35,6 @@ const addBudget = e => {
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('submit-btn').addEventListener('click', addBudget)
 })
+
+let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'));
+console.log(retrievedBudgetForm[2].month)
