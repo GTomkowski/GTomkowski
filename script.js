@@ -17,15 +17,10 @@ let budgetData = []
 const addBudget = e => {
 	e.preventDefault()
 
-	if (
-		document.getElementById('income').value &&
-		document.getElementById('month').value &&
-		document.getElementById('savings').value
-	) {
+	if (document.getElementById('income').value && document.getElementById('savings').value) {
 		let budget = {
 			days: getMonthDays(new Date().getMonth()),
 			income: document.getElementById('income').value,
-			month: document.getElementById('month').value,
 			savings: document.getElementById('savings').value,
 		}
 		budgetData.push(budget)
