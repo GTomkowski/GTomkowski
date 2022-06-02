@@ -1,14 +1,18 @@
 /* make it simple at first -
 
-first stage - what do I need
+put data into the budget card
 
-a callback on addEventListener which is a submit button that will 
-store inputs and then put them in the budget card
+
 
 what is the formula on those two fields
 
 
 */
+const getMonthDays = monthIndex => {
+	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	return monthDays[monthIndex]
+}
+
 let budgetData = []
 const addBudget = e => {
 	e.preventDefault()
@@ -19,7 +23,7 @@ const addBudget = e => {
 		document.getElementById('savings').value
 	) {
 		let budget = {
-			id: Date.now(),
+			days: getMonthDays(new Date().getMonth()),
 			income: document.getElementById('income').value,
 			month: document.getElementById('month').value,
 			savings: document.getElementById('savings').value,
@@ -34,7 +38,9 @@ const addBudget = e => {
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('submit-btn').addEventListener('click', addBudget)
+	document.getElementById('submit-btn').addEventListener('click', () => {})
 })
 
+/*
 let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'));
-console.log(retrievedBudgetForm[2].month)
+console.log(Date) - jak pobrac tresc z local storage */
