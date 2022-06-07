@@ -1,7 +1,7 @@
 
 
 .card {
-    height: 600px;
+    height: 400px;
     width: 600px;
 }
 
@@ -10,7 +10,20 @@
     
 }
 
-
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction:column;
+    gap: 5px;
+    
+}
+li {
+    line-height: 45px;
+    height: 45px;
+    width: 600px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
 
 .btn-css {
     width: 10%;

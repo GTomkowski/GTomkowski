@@ -8,13 +8,12 @@ what is the formula on those two fields
 
 
 */
-
+let budgetData = []
 const getMonthDays = monthIndex => {
 	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 	return monthDays[monthIndex]
 }
 
-let budgetData = []
 function addBudget(e) {
 	e.preventDefault()
 
@@ -30,24 +29,24 @@ function addBudget(e) {
 		console.warn('added', { budgetData })
 		localStorage.setItem('BudgetForm', JSON.stringify(budgetData))
 
-		const retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'))
-		document.getElementById('money-left-id').innerText = retrievedBudgetForm[0].income
-//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself // 
+		let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'))
+		document.getElementById('money-left-id').innerText = retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings
+		//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself //
 		document.getElementById('column-1').classList.toggle('d-none')
 		document.getElementById('column-2').classList.toggle('d-none')
-		
 	}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('submit-btn').addEventListener('click', addBudget)
-	document.getElementById('submit-btn').addEventListener('click', () => {})
 })
 
-/*
-let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'));
-console.log(Date) - jak pobrac tresc z local storage */
+function addExpense() {
+	let expenseVal = document.getElementById('expense-value').value
+	let expenseCat = document.getElementById('expense-category').value
 
-/* jak rozwiazac ten problem?
+	// create a ul list that will have dynamically added expenses with values from variables above //
 
-co chce zrobic - chce zeby od razu po przeslaniu danych do local storage otrzymac */
+	const list = document.createElement('ul')
+	
+}
