@@ -30,8 +30,12 @@ function addBudget(e) {
 		console.warn('added', { budgetData })
 		localStorage.setItem('BudgetForm', JSON.stringify(budgetData))
 
-		let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'))
-		document.getElementById('money-left-id').innerText = ` ${retrievedBudgetForm[0].income}`
+		const retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'))
+		document.getElementById('money-left-id').innerText = retrievedBudgetForm[0].income
+//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself // 
+		document.getElementById('column-1').classList.toggle('d-none')
+		document.getElementById('column-2').classList.toggle('d-none')
+		
 	}
 }
 
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('submit-btn').addEventListener('click', addBudget)
 	document.getElementById('submit-btn').addEventListener('click', () => {})
 })
-
 
 /*
 let retrievedBudgetForm = JSON.parse(localStorage.getItem('BudgetForm'));
