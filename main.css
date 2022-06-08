@@ -18,14 +18,32 @@ ul {
     
 }
 li {
+    display: flex;
     line-height: 45px;
     height: 45px;
     width: 600px;
     border: 1px solid black;
     border-radius: 8px;
+    justify-content: space-evenly;
+}
+li p {
+    height: 100%;
+    width: 45%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }
 
+
+
+#expVal {
+    border-right: 1px solid black;
+}
 .btn-css {
     width: 10%;
     margin-left: 10px;
+}
+
+.btn-danger {
+    width: 10%;
 }

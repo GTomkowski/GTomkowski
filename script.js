@@ -47,6 +47,8 @@ function addExpense() {
 
 	// create a ul list that will have dynamically added expenses with values from variables above //
 
-	const list = document.createElement('ul')
-	
+
+
+	const list = document.querySelector('li')
+		
 }
