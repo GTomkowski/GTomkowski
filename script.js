@@ -37,15 +37,17 @@ function addBudget(e) {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-	document.getElementById('submit-btn').addEventListener('click', addBudget)
-	document.getElementById('add-btn').addEventListener('click', addExpense)
-})
+
+function getCategory(categoryIndex) {
+	let categories = ['','Food','Entertainment','Utilities','Others'];
+	return categories[categoryIndex]
+}
+
 
 function addExpense() {
 	let expenseVal = document.getElementById('expense-value').value
-	let expenseCat = document.getElementById('expense-category').value
-
+	let expenseCat = getCategory(document.getElementById('expense-category').value);
+	
 	const list = document.querySelector('ul')
 	const listItem = document.createElement('li')
 	const para = document.createElement('p')
@@ -59,4 +61,15 @@ function addExpense() {
 	btn.textContent = 'X'
 	listItem.append(para, para2, btn)
 	list.append(listItem)
+
+	// what else do I want this function to do?
+
+	// 
+
+
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('submit-btn').addEventListener('click', addBudget)
+	document.getElementById('add-btn').addEventListener('click', addExpense)
+})
