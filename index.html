@@ -36,14 +36,14 @@
                 <div class="card border-dark mb-2">
                     <div class="card-body">
                         <h3 class="card-title text-center">Budget for this month</h3>
-                        <p class="money-left mt-4 ">Average money spent daily:<span> 0</span></p>
+                        <p class="money-left mt-4 ">Money spent:<span> 0</span></p>
                         <p class="money-left ">Money left: <span id="money-left-id"> 0</span></p>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text">$</span>
-                            <span class="input-group-text">0.00</span>
+                            <!-- <span class="input-group-text">$</span>
+                            <span class="input-group-text">0.00</span> -->
                             <input type="text" class="form-control"
-                                aria-label="Dollar amount (with dot and two decimal places)" id="expense-value">
+                                aria-label="Dollar amount (with dot and two decimal places)" id="expense-value" placeholder="Price">
                         </div>
                         <select class="form-select" aria-label="Default select example" id="expense-category">
                             <option selected>Choose expense category</option>
@@ -52,15 +52,19 @@
                             <option value="3">Utilities</option>
                             <option value="4">Others</option>
                         </select>
+                        <div class="row ">
 
-                        <button type="button" class="btn btn-success mt-3">Add</button>
+                            <button type="button" class="btn btn-success mt-3" id="add-btn">Add</button>
+                        </div>
 
 
                     </div>
                 </div>
             </div>
             <ul>
-                <li><p id="expVal">200</p><p id="expCat">category</p><button type="button" class="btn btn-danger">X</button>
+                <li>
+                    <p id="expVal">200</p>
+                    <p id="expCat">category</p><button type="button" class="btn btn-danger">X</button>
                 </li>
             </ul>
 

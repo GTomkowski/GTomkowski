@@ -39,16 +39,24 @@ function addBudget(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('submit-btn').addEventListener('click', addBudget)
+	document.getElementById('add-btn').addEventListener('click', addExpense)
 })
 
 function addExpense() {
 	let expenseVal = document.getElementById('expense-value').value
 	let expenseCat = document.getElementById('expense-category').value
 
-	// create a ul list that will have dynamically added expenses with values from variables above //
-
-
-
-	const list = document.querySelector('li')
-		
+	const list = document.querySelector('ul')
+	const listItem = document.createElement('li')
+	const para = document.createElement('p')
+	para.id = 'expVal'
+	para.textContent = expenseVal
+	const para2 = document.createElement('p')
+	para2.id = 'expCat'
+	para2.textContent = expenseCat
+	const btn = document.createElement('button')
+	btn.classList.add('btn', 'btn-danger')
+	btn.textContent = 'X'
+	listItem.append(para, para2, btn)
+	list.append(listItem)
 }
