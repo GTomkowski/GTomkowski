@@ -71,11 +71,12 @@ function addExpense() {
 	//
 }
 
+function removeListItem() {}
+
 document.addEventListener("DOMContentLoaded", () => {
 	document.getElementById("submit-btn").addEventListener("click", addBudget);
 	document.getElementById("add-btn").addEventListener("click", addExpense);
 });
-
 
 // container changes its width on each of the breakpoint
 
