@@ -1,3 +1,23 @@
+const submitBtn = document.getElementById("submit-btn");
+const addBtn = document.getElementById("add-btn");
+const form = document.getElementById("column-1");
+const card = document.getElementById("column-2");
+const formHidden = localStorage.getItem("formHidden") === "true";
+if (formHidden) {
+	form.classList.add("d-none");
+	card.classList.remove("d-none");
+} else {
+	form.classList.remove('d-none');
+	card.classList.add('d-none')
+}
+function formToggle() {
+	form.classList.toggle("d-none");
+	card.classList.toggle("d-none");
+	localStorage.setItem("formHidden", form.classList.contains("d-none"));
+
+	
+}
+
 let budgetData = [];
 function getMonthDays(monthIndex) {
 	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -26,8 +46,7 @@ function addBudget(e) {
 		document.getElementById("money-left-id").innerText =
 			retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
 		//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself //
-		document.getElementById("column-1").classList.toggle("d-none");
-		document.getElementById("column-2").classList.toggle("d-none");
+		formToggle();
 	}
 }
 
@@ -55,16 +74,14 @@ function addExpense() {
 	btn.textContent = "X";
 	listItem.append(para, para2, btn);
 	list.append(listItem);
-
-	
 }
 
 function removeListItem() {}
 
 document.addEventListener("DOMContentLoaded", () => {
-	document.getElementById("submit-btn").addEventListener("click", addBudget);
-	document.getElementById("add-btn").addEventListener("click", addExpense);
+	submitBtn.addEventListener("click", addBudget);
+	addBtn.addEventListener("click", addExpense);
 });
 
-// co ja chce zrobic? 
-// po dodaniu ekspensu, chce zeby wartosc w polu money spent sie zmieniala 
+// co ja chce zrobic?
+// po dodaniu ekspensu, chce zeby wartosc w polu money spen

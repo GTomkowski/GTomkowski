@@ -6,7 +6,14 @@ const card = document.getElementById("column-2")
 
 const formHidden = localStorage.getItem('formHidden') === 'true';
 
-if (formHidden) {
+// wywolana jest metoda getItem na obiekcie local storage
+// nastepnie ta metoda pobiera wartosc odpowiadajaca kluczowi 
+
+// strict equality operator w JS porownuje wartosc z boolean true
+
+// jesli ta wartosc jest rowna prawdzie, zwracana jest prawda ktora przypisana jest do zmiennej formHidden
+
+if (formHidden) { // jesli formHidden rowne jest prawdzie, form sie chowa, karta sie pojawia // jesli byloby na odwrot, to 
     form.classList.add('d-none')
     card.classList.remove('d-none')
 } else {
