@@ -1,13 +1,3 @@
-/* make it simple at first -
-
-put data into the budget card
-
-
-
-what is the formula on those two fields
-
-
-*/
 let budgetData = [];
 function getMonthDays(monthIndex) {
 	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -66,9 +56,7 @@ function addExpense() {
 	listItem.append(para, para2, btn);
 	list.append(listItem);
 
-	// what else do I want this function to do?
-
-	//
+	
 }
 
 function removeListItem() {}
@@ -78,6 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	document.getElementById("add-btn").addEventListener("click", addExpense);
 });
 
-// container changes its width on each of the breakpoint
-
-// using bootstrap container classes, I want a container to stay at a certain width after medium breakpoint, what is the class ?
+// co ja chce zrobic? 
+// po dodaniu ekspensu, chce zeby wartosc w polu money spent sie zmieniala 
