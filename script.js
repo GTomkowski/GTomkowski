@@ -3,7 +3,7 @@ const addBtn = document.getElementById("add-btn");
 const form = document.getElementById("column-1");
 const card = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
-let budgetData = [];
+const budgetData = [];
 if (formHidden) {
 	form.classList.add("d-none");
 	card.classList.remove("d-none");
@@ -29,7 +29,7 @@ function addBudget(e) {
 		document.getElementById("income").value &&
 		document.getElementById("savings").value
 	) {
-		let budget = {
+		const budget = {
 			days: getMonthDays(new Date().getMonth()),
 			income: document.getElementById("income").value,
 			savings: document.getElementById("savings").value,
@@ -40,9 +40,9 @@ function addBudget(e) {
 		console.warn("added", { budgetData });
 
 		localStorage.setItem("BudgetForm", JSON.stringify(budgetData)); // tworzymy pare klucz wartosc, w tym wypadku
-		// kluczem jest BudgetForm a wartoscia jest budgetData, za kazdym razem
+		// kluczem jest BudgetForm a wartoscia jest budgetData
 
-		let retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
+		const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
 		document.getElementById("money-left-id").innerText =
 			retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
 		//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself //
@@ -55,33 +55,44 @@ function getCategory(categoryIndex) {
 	return categories[categoryIndex];
 }
 
-function addExpense() {
-	let expenseVal = document.getElementById("expense-value").value;
-	let expenseCat = getCategory(
-		document.getElementById("expense-category").value
-	);
-
+function createList() {
 	const list = document.querySelector("ul");
 	const listItem = document.createElement("li");
 	const para = document.createElement("p");
 	para.id = "expVal";
-	para.textContent = expenseVal;
 	const para2 = document.createElement("p");
 	para2.id = "expCat";
-	para2.textContent = expenseCat;
 	const btn = document.createElement("button");
 	btn.classList.add("btn", "btn-danger");
 	btn.textContent = "X";
 	listItem.append(para, para2, btn);
 	list.append(listItem);
-}
 
-function removeListItem() {}
+	return {
+		listItem: listItem,
+		para: para,
+		para2: para2
+	}
+}
+function addExpense() {
+	
+	const {para, para2} = createList();
+	const expenseVal = document.getElementById("expense-value").value;
+	const expenseCat = getCategory(
+		document.getElementById("expense-category").value
+	);
+	para.textContent = expenseVal;
+	para2.textContent = expenseCat;
+
+
+	// jak dodam ekspens, to chce zeby tworzyla sie nowa zmienna w obiekcie budgetform, ktora bede odejmowac od income, przez co pojawi mi sie kolejna wartosc money left -- ogarnac get i set item jak dziala na budgetform
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 	submitBtn.addEventListener("click", addBudget);
 	addBtn.addEventListener("click", addExpense);
 });
 
-// co ja chce zrobic?
-// po dodaniu ekspensu, chce zeby wartosc w polu money left ubywalo zgodnie z dodanym ekspensem
+// 1 PROBLEM NARAZ
+
+// zmienic dodawanie do local storage, zeby to mialo rece i nogi
