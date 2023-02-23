@@ -5,10 +5,7 @@ const card = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
 const moneyLeft = document.getElementById("money-left-id");
 
-const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
 const budgetData = [];
-moneyLeft.innerText =
-	retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
 
 if (formHidden) {
 	form.classList.add("d-none");
@@ -46,6 +43,11 @@ function addBudget(e) {
 		console.warn("added", { budgetData });
 
 		localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
+		const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
+		console.log(typeof retrievedBudgetForm[0].income);
+		const result =
+			retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
+		moneyLeft.innerText = result.toString();
 
 		formToggle();
 	}
@@ -76,12 +78,13 @@ function createList() {
 	};
 }
 function subtractExpense(expenseVal) {
-	retrievedBudgetForm[0].expense = expenseVal; 
-	
-	document.getElementById("money-left-id").innerText =
+	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
+	retrievedBudgetForm[0].expense = parseInt(expenseVal);
+	const result =
 		retrievedBudgetForm[0].income -
-		retrievedBudgetForm[0].savings - // income i sejwings maja ciagle taka sama wartosc
+		retrievedBudgetForm[0].savings -
 		retrievedBudgetForm[0].expense;
+	document.getElementById("money-left-id").innerText = result.toString()
 }
 
 // kalkulacje musza byc robione na liczbach, a w obiekcie mamy zapisane stringi
