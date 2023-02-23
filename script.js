@@ -3,22 +3,20 @@ const addBtn = document.getElementById("add-btn");
 const form = document.getElementById("column-1");
 const card = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
+let budgetData = [];
 if (formHidden) {
 	form.classList.add("d-none");
 	card.classList.remove("d-none");
 } else {
-	form.classList.remove('d-none');
-	card.classList.add('d-none')
+	form.classList.remove("d-none");
+	card.classList.add("d-none");
 }
 function formToggle() {
 	form.classList.toggle("d-none");
 	card.classList.toggle("d-none");
 	localStorage.setItem("formHidden", form.classList.contains("d-none"));
-
-	
 }
 
-let budgetData = [];
 function getMonthDays(monthIndex) {
 	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	return monthDays[monthIndex];
@@ -40,7 +38,9 @@ function addBudget(e) {
 		document.forms[0].reset();
 
 		console.warn("added", { budgetData });
-		localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
+
+		localStorage.setItem("BudgetForm", JSON.stringify(budgetData)); // tworzymy pare klucz wartosc, w tym wypadku
+		// kluczem jest BudgetForm a wartoscia jest budgetData, za kazdym razem
 
 		let retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
 		document.getElementById("money-left-id").innerText =
@@ -84,4 +84,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // co ja chce zrobic?
-// po dodaniu ekspensu, chce zeby wartosc w polu money spen
+// po dodaniu ekspensu, chce zeby wartosc w polu money left ubywalo zgodnie z dodanym ekspensem
