@@ -3,7 +3,13 @@ const addBtn = document.getElementById("add-btn");
 const form = document.getElementById("column-1");
 const card = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
+const moneyLeft = document.getElementById("money-left-id");
+
+const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
 const budgetData = [];
+moneyLeft.innerText =
+	retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
+
 if (formHidden) {
 	form.classList.add("d-none");
 	card.classList.remove("d-none");
@@ -31,21 +37,16 @@ function addBudget(e) {
 	) {
 		const budget = {
 			days: getMonthDays(new Date().getMonth()),
-			income: document.getElementById("income").value,
-			savings: document.getElementById("savings").value,
+			income: parseInt(document.getElementById("income").value),
+			savings: parseInt(document.getElementById("savings").value),
 		};
 		budgetData.push(budget);
 		document.forms[0].reset();
 
 		console.warn("added", { budgetData });
 
-		localStorage.setItem("BudgetForm", JSON.stringify(budgetData)); // tworzymy pare klucz wartosc, w tym wypadku
-		// kluczem jest BudgetForm a wartoscia jest budgetData
+		localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
 
-		const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
-		document.getElementById("money-left-id").innerText =
-			retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
-		//  function above works but only for static website, if we have more entries than one this code will not run properly, i am aware of that but I wanted to use localStorage to show how to retrieve and save data in itself //
 		formToggle();
 	}
 }
@@ -71,21 +72,29 @@ function createList() {
 	return {
 		listItem: listItem,
 		para: para,
-		para2: para2
-	}
+		para2: para2,
+	};
 }
-function addExpense() {
+function subtractExpense(expenseVal) {
+	retrievedBudgetForm[0].expense = expenseVal; 
 	
-	const {para, para2} = createList();
+	document.getElementById("money-left-id").innerText =
+		retrievedBudgetForm[0].income -
+		retrievedBudgetForm[0].savings - // income i sejwings maja ciagle taka sama wartosc
+		retrievedBudgetForm[0].expense;
+}
+
+// kalkulacje musza byc robione na liczbach, a w obiekcie mamy zapisane stringi
+
+function addExpense() {
+	const { para, para2 } = createList();
 	const expenseVal = document.getElementById("expense-value").value;
 	const expenseCat = getCategory(
 		document.getElementById("expense-category").value
 	);
+	subtractExpense(expenseVal);
 	para.textContent = expenseVal;
 	para2.textContent = expenseCat;
-
-
-	// jak dodam ekspens, to chce zeby tworzyla sie nowa zmienna w obiekcie budgetform, ktora bede odejmowac od income, przez co pojawi mi sie kolejna wartosc money left -- ogarnac get i set item jak dziala na budgetform
 }
 
 document.addEventListener("DOMContentLoaded", () => {
