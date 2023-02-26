@@ -78,19 +78,23 @@ function createList() {
 }
 function subtractExpense(expenseVal) {
 	const budgetData = [];
-	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm")); // przypisuje do zmiennej retrievedBudgetForm obiekt BudgetForm
-	console.log(retrievedBudgetForm);
-
+	let result;
+	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
+	// umysl - jak zmienic sposob dodawania ekspensu, zeby to poprawnie dzi
 	retrievedBudgetForm[0].expense = parseInt(expenseVal); // dodaje dynamiczne klucz expense i przypisuje mu wartosc expenseVal
-	console.log(retrievedBudgetForm[0].expense);
+	if ('moneyLeft' in retrievedBudgetForm[0]) {
+		result = retrievedBudgetForm[0].moneyLeft - retrievedBudgetForm[0].expense;
+		document.getElementById("money-left-id").innerText = result.toString();
+	} else {
+		result =
+			retrievedBudgetForm[0].income -
+			retrievedBudgetForm[0].savings -
+			retrievedBudgetForm[0].expense;
+	
+		document.getElementById("money-left-id").innerText = result.toString();
+	}
+	//  zeby przy kolejnej iteracji wartosc wydatku odjela sie od zaktualizowanej wartosci moneyleft
 
-	const result =
-		retrievedBudgetForm[0].income -
-		retrievedBudgetForm[0].savings -
-		retrievedBudgetForm[0].expense;
-	// potrzebuje, zeby to z powrotem wrocilo do local storage, zeby przy kolejnej iteracji wartosc wydatku odjela sie od zaktualizowanej wartosci
-	// moneyleft - check
-	document.getElementById("money-left-id").innerText = result.toString();
 	const budget = {
 		income: retrievedBudgetForm[0].income,
 		savings: retrievedBudgetForm[0].savings,
