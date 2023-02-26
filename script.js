@@ -5,8 +5,6 @@ const card = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
 const moneyLeft = document.getElementById("money-left-id");
 
-const budgetData = [];
-
 if (formHidden) {
 	form.classList.add("d-none");
 	card.classList.remove("d-none");
@@ -27,6 +25,7 @@ function getMonthDays(monthIndex) {
 
 function addBudget(e) {
 	e.preventDefault();
+	const budgetData = [];
 
 	if (
 		document.getElementById("income").value &&
@@ -78,13 +77,29 @@ function createList() {
 	};
 }
 function subtractExpense(expenseVal) {
-	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
-	retrievedBudgetForm[0].expense = parseInt(expenseVal);
+	const budgetData = [];
+	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm")); // przypisuje do zmiennej retrievedBudgetForm obiekt BudgetForm
+	console.log(retrievedBudgetForm);
+
+	retrievedBudgetForm[0].expense = parseInt(expenseVal); // dodaje dynamiczne klucz expense i przypisuje mu wartosc expenseVal
+	console.log(retrievedBudgetForm[0].expense);
+
 	const result =
 		retrievedBudgetForm[0].income -
 		retrievedBudgetForm[0].savings -
 		retrievedBudgetForm[0].expense;
-	document.getElementById("money-left-id").innerText = result.toString()
+	// potrzebuje, zeby to z powrotem wrocilo do local storage, zeby przy kolejnej iteracji wartosc wydatku odjela sie od zaktualizowanej wartosci
+	// moneyleft - check
+	document.getElementById("money-left-id").innerText = result.toString();
+	const budget = {
+		income: retrievedBudgetForm[0].income,
+		savings: retrievedBudgetForm[0].savings,
+		expense: retrievedBudgetForm[0].expense,
+		moneyLeft: result,
+	};
+	budgetData.push(budget);
+	console.log(budgetData);
+	localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
 }
 
 // kalkulacje musza byc robione na liczbach, a w obiekcie mamy zapisane stringi
@@ -105,6 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	addBtn.addEventListener("click", addExpense);
 });
 
-// 1 PROBLEM NARAZ
+// zapisac stan strony podczas ktorej wczytane sa dane pod i w karcie
+// jezeli istnieje juz kategoria ktora dodaje w liscie, dodac wartosc do tego ekspensu
+// konwerter waluty
 
-// zmienic dodawanie do local storage, zeby to mialo rece i nogi
+// poprawic widok, na desktopie apka powinna byc na srodku, nie z lewej strony
