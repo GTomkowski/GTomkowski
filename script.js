@@ -8,6 +8,9 @@ const moneyLeft = document.getElementById("money-left-id");
 if (formHidden) {
 	form.classList.add("d-none");
 	card.classList.remove("d-none");
+	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
+	moneyLeft.innerText = retrievedBudgetForm[0].moneyLeft.toString();
+	displayExpenseItems();
 } else {
 	form.classList.remove("d-none");
 	card.classList.add("d-none");
@@ -43,7 +46,6 @@ function addBudget(e) {
 
 		localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
 		const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
-		console.log(typeof retrievedBudgetForm[0].income);
 		const result =
 			retrievedBudgetForm[0].income - retrievedBudgetForm[0].savings;
 		moneyLeft.innerText = result.toString();
@@ -67,33 +69,54 @@ function createList() {
 	const btn = document.createElement("button");
 	btn.classList.add("btn", "btn-danger");
 	btn.textContent = "X";
+	btn.addEventListener("click", function () {
+		this.parentElement.remove();
+	});
 	listItem.append(para, para2, btn);
-	list.append(listItem);
 
+	list.append(listItem);
+	//
 	return {
-		listItem: listItem,
 		para: para,
 		para2: para2,
 	};
 }
+function addExpense() {
+	const { para, para2 } = createList(); // najpierw wykonuje sie funkcja createList, tworzy sie element list item dodany do listy
+	// funkcja zwraca zmienne para i para2 ktorym przypisane sa wa
+	const expenseVal = document.getElementById("expense-value").value;
+	const expenseCat = getCategory(
+		document.getElementById("expense-category").value
+	);
+	subtractExpense(expenseVal);
+	para.textContent = expenseVal;
+	para2.textContent = expenseCat;
+	const expenseItem = {
+		value: expenseVal,
+		category: expenseCat,
+	};
+	const existingItems = JSON.parse(localStorage.getItem("expenseItems")) || [];
+	existingItems.push(expenseItem);
+	localStorage.setItem("expenseItems", JSON.stringify(existingItems));
+}
+
 function subtractExpense(expenseVal) {
 	const budgetData = [];
 	let result;
 	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
-	// umysl - jak zmienic sposob dodawania ekspensu, zeby to poprawnie dzi
-	retrievedBudgetForm[0].expense = parseInt(expenseVal); // dodaje dynamiczne klucz expense i przypisuje mu wartosc expenseVal
-	if ('moneyLeft' in retrievedBudgetForm[0]) {
+	retrievedBudgetForm[0].expense = parseInt(expenseVal);
+	if ("moneyLeft" in retrievedBudgetForm[0]) {
 		result = retrievedBudgetForm[0].moneyLeft - retrievedBudgetForm[0].expense;
 		document.getElementById("money-left-id").innerText = result.toString();
 	} else {
-		result =
+		retrievedBudgetForm[0].moneyLeft =
 			retrievedBudgetForm[0].income -
 			retrievedBudgetForm[0].savings -
 			retrievedBudgetForm[0].expense;
-	
+		result = retrievedBudgetForm[0].moneyLeft;
+
 		document.getElementById("money-left-id").innerText = result.toString();
 	}
-	//  zeby przy kolejnej iteracji wartosc wydatku odjela sie od zaktualizowanej wartosci moneyleft
 
 	const budget = {
 		income: retrievedBudgetForm[0].income,
@@ -102,21 +125,19 @@ function subtractExpense(expenseVal) {
 		moneyLeft: result,
 	};
 	budgetData.push(budget);
-	console.log(budgetData);
 	localStorage.setItem("BudgetForm", JSON.stringify(budgetData));
 }
 
-// kalkulacje musza byc robione na liczbach, a w obiekcie mamy zapisane stringi
+function displayExpenseItems() {
+	// Get the list of expense items from local storage
+	const expenseItems = JSON.parse(localStorage.getItem("expenseItems")) || [];
 
-function addExpense() {
-	const { para, para2 } = createList();
-	const expenseVal = document.getElementById("expense-value").value;
-	const expenseCat = getCategory(
-		document.getElementById("expense-category").value
-	);
-	subtractExpense(expenseVal);
-	para.textContent = expenseVal;
-	para2.textContent = expenseCat;
+	// Loop through the list of expense items and create a new list item for each item
+	expenseItems.forEach((expenseItem) => {
+		const { para, para2 } = createList();
+		para.textContent = expenseItem.value;
+		para2.textContent = expenseItem.category;
+	});
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -124,7 +145,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	addBtn.addEventListener("click", addExpense);
 });
 
-// zapisac stan strony podczas ktorej wczytane sa dane pod i w karcie
+/* usunac element dodany na liste
+co sie dzieje - klikam przycisk, element znika z dom representation
+dodaje sie z powrotem suma do money left
+
+
+
+
+
+
+*/
+// dodac dane karty do local storage za kazdym razem jak dodaje je na strone,
 // jezeli istnieje juz kategoria ktora dodaje w liscie, dodac wartosc do tego ekspensu
 // konwerter waluty
 
