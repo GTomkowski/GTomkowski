@@ -74,18 +74,20 @@ function createList(timestamp) {
 	btn.timestamp = timestamp; // chce zeby w funkcji createList utworzyc wlasciwosc timestamp
 	// w przycisku i przypisac do niej wartosc timestampu
 	btn.addEventListener("click", function () {
+		// zalozmy, ze napisze to tak, jakby tego kodu nie bylo nigdzie indziej w skrypcie
 		this.parentElement.remove();
+		const retrievedBudgetForm = // pobieram retrievedBudgetForm
+			JSON.parse(localStorage.getItem("BudgetForm")) || [];
+		const result = (retrievedBudgetForm[0].moneyLeft +=
+			retrievedBudgetForm[0].expense);
+		moneyLeft.innerText = result.toString(); // dodaje sie expense do moneyleft, no bo usuwam wartosc
 		const existingItems =
 			JSON.parse(localStorage.getItem("expenseItems")) || [];
 
 		const updatedItems = existingItems.filter(
-			(
-				item // zwroc item, jezeli item nie jest rowny wartosci, kategorii i timestampowi itemu, czyli wlasciwie zwroc kazdy item ktory nie jest tym itemem ponizej
-			) => item.timestamp !== this.timestamp
-		); // no ale to sa dwa rozne timestampy, jeden timestamp sie tworzy w momencie klikniecia add expense i nie bedzie taki sam jak timestamp ktory utworzy sie w obiekcie expenseItem w momencie klikniecia przycisku X
-
-		// umysl, co nalezy zrobic? porownac timestamp
-		console.log(updatedItems);
+			(item) => item.timestamp !== this.timestamp
+		);
+		localStorage.setItem("BudgetForm", JSON.stringify(retrievedBudgetForm));
 		localStorage.setItem("expenseItems", JSON.stringify(updatedItems));
 	});
 	listItem.append(para, para2, btn);
@@ -138,7 +140,7 @@ function subtractExpense(expenseVal) {
 
 		moneyLeft.innerText = result.toString();
 	}
-
+	// 143-149 - commented out
 	const budget = {
 		income: retrievedBudgetForm[0].income,
 		savings: retrievedBudgetForm[0].savings,
@@ -167,10 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* usunac element dodany na liste
-co sie dzieje - klikam przycisk, element znika z dom representation
-dodaje sie z powrotem suma do money left
-
-umysl - czemu ta funkcja nie odejmuje z local storage obiektu z tablicy obiektow
+`zadanie 1 - za kazdym razem jak usuwamy element z listy, moneyLeft sie powieksza o te wartosc`
 
 
 
