@@ -1,34 +1,61 @@
+// form control variables
+const form = document.getElementById("column-1");
+const formTwo = document.getElementById("column-2");
+const incomeInput = document.querySelector("#income");
+const savingsInput = document.querySelector("#savings");
+const expenseValueInput = document.querySelector("#expense-value");
+const expenseCategorySelect = document.querySelector("#expense-category");
+
+// variables for each of the functions - DOM manipulation and local storage
+
 const submitBtn = document.getElementById("submit-btn");
 const addBtn = document.getElementById("add-btn");
-const form = document.getElementById("column-1");
-const card = document.getElementById("column-2");
+const formCard = document.getElementById("column-1");
+const budgetCard = document.getElementById("column-2");
 const formHidden = localStorage.getItem("formHidden") === "true";
 const moneyLeft = document.getElementById("money-left-id");
 let timestamp;
 
+// codeblock that checks which form is hidden and adds classes + items on the index.html after each refresh
+
 if (formHidden) {
-	form.classList.add("d-none");
-	card.classList.remove("d-none");
+	formCard.classList.add("d-none");
+	budgetCard.classList.remove("d-none");
 	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
 	moneyLeft.innerText = retrievedBudgetForm[0].moneyLeft.toString();
 	displayExpenseItems();
 } else {
-	form.classList.remove("d-none");
-	card.classList.add("d-none");
+	formCard.classList.remove("d-none");
+	budgetCard.classList.add("d-none");
 }
 function formToggle() {
-	form.classList.toggle("d-none");
-	card.classList.toggle("d-none");
-	localStorage.setItem("formHidden", form.classList.contains("d-none"));
+	formCard.classList.toggle("d-none");
+	budgetCard.classList.toggle("d-none");
+	localStorage.setItem("formHidden", formCard.classList.contains("d-none"));
 }
 
-function getMonthDays(monthIndex) {
-	let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	return monthDays[monthIndex];
+// helper function to get
+
+function getMonthName(monthIndex) {
+	let monthNames = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	return monthNames[monthIndex];
 }
 
-function addBudget(e) {
-	e.preventDefault();
+function addBudget() {
+	// e.preventDefault();
 	const budgetData = [];
 
 	if (
@@ -36,7 +63,7 @@ function addBudget(e) {
 		document.getElementById("savings").value
 	) {
 		const budget = {
-			days: getMonthDays(new Date().getMonth()),
+			days: getMonthName(new Date().getMonth()),
 			income: parseInt(document.getElementById("income").value),
 			savings: parseInt(document.getElementById("savings").value),
 		};
@@ -108,7 +135,7 @@ function addExpense() {
 	const expenseCat = getCategory(
 		document.getElementById("expense-category").value
 	);
-	subtractExpense(expenseVal);
+	subtractExpenseValue(expenseVal);
 	para.textContent = expenseVal;
 	para2.textContent = expenseCat;
 	const expenseItem = {
@@ -122,7 +149,7 @@ function addExpense() {
 	localStorage.setItem("expenseItems", JSON.stringify(existingItems));
 }
 
-function subtractExpense(expenseVal) {
+function subtractExpenseValue(expenseVal) {
 	const budgetData = [];
 	let result;
 	const retrievedBudgetForm = JSON.parse(localStorage.getItem("BudgetForm"));
@@ -163,19 +190,42 @@ function displayExpenseItems() {
 	});
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-	submitBtn.addEventListener("click", addBudget);
-	addBtn.addEventListener("click", addExpense);
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+
+	if (incomeInput.value.trim() === "") {
+		alert("Please enter your monthly income.");
+		incomeInput.focus();
+		return;
+	}
+
+	if (savingsInput.value.trim() === "") {
+		alert("Please enter how much you want to save this month.");
+		savingsInput.focus();
+		return;
+	}
+
+	// if all inputs are valid
+	addBudget();
+});
+formTwo.addEventListener("submit", (event) => {
+	event.preventDefault();
+
+	if (expenseValueInput.value.trim() === "") {
+		alert("Please enter the expense value.");
+		expenseValueInput.focus();
+		return;
+	}
+
+	if (expenseCategorySelect.value === "Choose expense category") {
+		alert("Please choose an expense category.");
+		expenseCategorySelect.focus();
+		return;
+	}
+
+	addExpense();
 });
 
-/* usunac element dodany na liste
-`zadanie 1 - za kazdym razem jak usuwamy element z listy, moneyLeft sie powieksza o te wartosc`
-
-
-
-
-*/
-// dodac dane karty do local storage za kazdym razem jak dodaje je na strone,
 // jezeli istnieje juz kategoria ktora dodaje w liscie, dodac wartosc do tego ekspensu
 // konwerter waluty
 

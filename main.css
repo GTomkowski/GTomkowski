@@ -1,9 +1,9 @@
+/* umysl, co ja chce zrobic?
+powyzej okreslonego breakpointu, nie chce zeby moj formularz zwiekszal rozmiar
 
 
-.card {
-    height: 400px;
-    width: 600px;
-}
+
+*/
 
 .money-left {
     font-size: 24px;
@@ -21,7 +21,7 @@ li {
     display: flex;
     line-height: 45px;
     height: 45px;
-    width: 600px;
+    width: 100%;
     border: 1px solid black;
     border-radius: 8px;
     justify-content: space-evenly;
